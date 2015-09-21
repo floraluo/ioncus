@@ -17,5 +17,13 @@ angular.module('starter.servive' , [])
 	
 }])
 .factory('professionData',function(){
-	return {name: 'xx'};
+	var professionServe={};
+	professionServe.name='';
+	professionServe.setter=function(data){
+		this.name=data;
+	}
+	professionServe.getter=function(){
+		return this.name;
+	}
+	return professionServe;
 })

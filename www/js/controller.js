@@ -122,7 +122,7 @@ angular.module('starter.controller' , [])
 	
 })
 .controller('SettinCtrl', ['$scope', 'professionData', function($scope, professionData){
-	$scope.myprofession = professionData.name;
+	$scope.myprofession = professionData.getter();
 }])
 .controller("PersonalCtrl", function($scope, $cordovaCamera){
 	$scope.myPortrait="../img/ionic.png";
@@ -161,7 +161,10 @@ angular.module('starter.controller' , [])
 	$scope.selectJob=function(index){
 		console.log($scope.professions[index].name);
 		// $rootscope.myprofession=$scope.professions[index].name;
-		professionData.name=$scope.professions[index].name;
+		// professionData.name=$scope.professions[index].name;
+		professionData.setter($scope.professions[index].name);
+		console.log(professionData.getter());
+
 		$location.path('/demo/setting');
 	}
 }])
