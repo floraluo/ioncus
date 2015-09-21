@@ -1,0 +1,36 @@
+<!-- ion side menus is a parent element and hava at lest 2 child elements -->
+<ion-side-menus>
+	<ion-side-menu-content>
+		<!-- main content usually <ion-nav-view> -->
+		<ion-nav-bar class="bar-stable">
+			<ion-nav-back-button>
+	        </ion-nav-back-button>
+
+			<ion-nav-buttons side="left">
+				<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+			</ion-nav-buttons>
+			<ion-nav-buttons side="right">
+				<button class="button button-icon icon ion-funnel" menu-toggle="right"></button>
+			</ion-nav-buttons>
+		</ion-nav-bar>
+		<ion-nav-view name="menuContent"></ion-nav-view>
+	</ion-side-menu-content>
+	<!-- left menu -->
+	<ion-side-menu side="left">
+		<!-- <ion-header-bar class="bar-stable">
+			<h1 class="title">ddd</h1>
+		</ion-header-bar> -->
+		<ion-header-bar class="" align-title="left">
+	      <h1 class="title"><img src="../img/ionic.png" alt="" width="35">Flora</h1>
+	    </ion-header-bar>
+		<ion-content>
+			<ion-list>
+				<ion-item menu-close href="#/demo/sheet">ActionSheet</ion-item>
+				<ion-item menu-close href="#/demo/content">content demo</ion-item>
+				<ion-item menu-close href="#/demo/forminput">form input demo</ion-item>
+				<ion-item menu-close href="#/demo/gesture">Gestures and events</ion-item>
+				<ion-item menu-close href="#/demo/setting"><i class="ion-ios-gear-outline"></i>设置</ion-item>
+			</ion-list>
+		</ion-content>
+	</ion-side-menu>
+</ion-side-menus>

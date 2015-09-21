@@ -1,0 +1,11 @@
+<ion-view view-title="请选择你的职业">
+	<ion-content>
+		<ion-list>
+			<ion-item class="padding" ng-repeat="profession in professions" ng-click="selectJob($index)">
+				<!-- <a href=""> -->
+				{{profession.name}}
+				<!-- </a> -->
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

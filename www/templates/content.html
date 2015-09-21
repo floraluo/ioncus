@@ -1,0 +1,14 @@
+<ion-view view-title="content demo" title-class="title-dark">
+	<ion-content ng-controller="ContCtrl">
+		<ion-refresher spinner="ios-small" pulling-text="拉动刷新" on-refresh="doRefresh()" on-pulling="doPulling()" >
+		<!-- spinner 修改默认的刷新icon -->
+		<!-- doPulling()先于doRefresh()触发 -->
+		</ion-refresher>
+		<!-- <ion-spinner icon="spiral"></ion-spinner> -->
+		<ion-list>
+			<ion-item ng-repeat="state in states">
+				{{state.name}}
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

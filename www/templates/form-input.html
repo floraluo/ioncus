@@ -1,0 +1,14 @@
+<ion-view view-title="form input demo">
+	<ion-content ng-controller="ForCtrl">
+		<ion-checkbox ng-model="ischeckbox" checked>chekout lable</ion-checkbox>
+		
+		<ion-radio ng-repeat="g in garden" ng-model="name.garden" ng-value="g.value">{{g.text}}</ion-radio>
+		<!-- <div class="list">
+			<div class="item item-divider">{{name.garden}}</div>
+		</div> -->
+
+		<ion-toggle ng-model="bluetooth" toggle-class="toggle-light">bluetooth
+		</ion-toggle>
+		<button class="button button-block button-dark" type="submit" ng-click="formSubmit()">提交</button>
+	</ion-content>
+</ion-view>
