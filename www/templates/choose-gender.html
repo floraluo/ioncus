@@ -1,0 +1,10 @@
+<ion-modal-view class="text-center padding">
+	<ion-header-bar class="bar bar-header bar-positive" align-title="center">
+		<h1 class="title">性别</h1>
+	</ion-header-bar>
+	<ion-content class="padding">
+		<ion-list>
+			<ion-item ng-repeat="gender in genderlist" ng-click="chooseGender($index)">{{gender}}</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-modal-view>

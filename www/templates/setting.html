@@ -8,18 +8,55 @@
 			</a>
 		</div>
 		<div class="list">
-			<a href="/#/demo/selectProfession" class="item item-icon-right">
+			<a href="#/demo/selectProfession" class="item item-icon-right">
 				职业
 				<i class="icon ion-chevron-right"></i>
 				<span class="item-note">
-			      请选择{{myprofession}}
+			      <span ng-hide="user.profession">请选择</span>{{user.profession}}
 			    </span>
 			</a>
-			<a href="#" class="item item-icon-right">
+			<a href="#/demo/signature" class="item item-icon-right">
 				签名
 				<i class="icon ion-chevron-right"></i>
-				<span class="item-note">设置你的签名</span>
+				<span class="item-note">
+					<span ng-hide="user.signature">设置你的签名</span>{{user.signature}}
+				</span>
+			</a>
+		</div>
+		<div class="list">
+			<a href="#/demo/nickname" class="item item-icon-right">
+				昵称
+				<i class="icon ion-chevron-right"></i>
+				<span class="item-note">
+					<span ng-hide="user.nickname">设置昵称</span>{{user.nickname}}
+				</span>
+			</a>
+			<div class="item item-icon-right" ng-click="modal.show()">
+				性别
+				<i class="icon ion-chevron-right"></i>
+				<span class="item-note">
+					<span ng-hide="gender">保密</span>{{gender}}
+				</span>
+			</div>
+			<a href="#/demo/region" class="item item-icon-right">
+				地区
+				<i class="icon ion-chevron-right"></i>
+				<span class="item-note">
+					<span ng-hide="region">请选择</span>{{region}}
+				</span>
 			</a>
 		</div>
 	</ion-content>
 </ion-view>
+<script id="choose-gender.html"  type="text/ng-template">
+	<ion-modal-view class="text-center padding">
+	<ion-header-bar class="bar bar-header bar-positive" align-title="center">
+		<h1 class="title">性别</h1>
+	</ion-header-bar>
+	<ion-content class="padding">
+		<ion-list>
+			<ion-item ng-repeat="gender in genderlist" ng-click="chooseGender($index)">{{gender}}</ion-item>
+		</ion-list>
+	</ion-content>
+	</ion-modal-view>
+</script>

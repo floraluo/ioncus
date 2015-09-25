@@ -17,11 +17,39 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
   });
 })
 .config(function($stateProvider, $urlRouterProvider){
-  $stateProvider.state('demo',{
+  $stateProvider.state('demo', {
     url: '/demo',
     abstract: true,
-    templateUrl: 'templates/main-menu.html',
-    controller: 'DeomoCtrl'
+    templateUrl: 'templates/main-menu.html'
+    // views: {
+    //   '': {
+    //     templateUrl: 'templates/main-menu.html'
+    //   },
+    //   'menuContent@demo': {
+    //     templateUrl: 'templates/tab-home.html',
+    //     controller: 'DeomoCtrl'
+    //   }
+    // }
+  })
+  .state('demo.tabs',{
+    url: '/home',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/tab-home.html'
+      }
+      // 'tabs': {
+      //   templateUrl: 'templates/tabs.html'
+      // }
+    }
+    // views: {
+    //   'menuContent': {
+    //     templateUrl: 'templates/tabs.html',
+    //     controller: 'DeomoCtrl'
+    //   },
+    //   'tab-home': {
+    //     templateUrl: 'templates/tab-home.html'
+    //   }
+    // }
   })
   .state('demo.sheet',{
     url: '/sheet',
@@ -58,6 +86,7 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
   })
   .state('demo.setting',{
     url: '/setting',
+    // cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/setting.html',
@@ -81,47 +110,43 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
         controller: "ProfessionCtrl"
       }
     }
-  });
-  $urlRouterProvider.otherwise('/demo/sheet');
-})
-.controller("starterCtrl",function ($scope ,$ionicActionSheet, $ionicBackdrop, $timeout) {
-  $scope.tasks=[
-    { title: 'aaa'},
-    { title: 'bbb'},
-    { title: 'ccc'}
-  ];
-  //Show a backdrop for one second
-  $scope.action = function() {
-    $ionicBackdrop.retain();
-    $timeout(function() {
-      $ionicBackdrop.release();
-    }, 1000);
-  };
-  $scope.testfun = function(data){
-    console.log(data);
-  };
-  $scope.show = function(data){
-    $ionicActionSheet.show({
-      buttons: [
-        { text: '<b>Share</b> This' },
-        { text: 'Move' },
-        { text: 'sssssss' }
-      ],
-      cancelText: 'Cancel',
-      destructiveText: 'Delete',
-      // titleText: 'Modify your album',
-      cancel: function() {
-        console.log('CANCELLED');
-      },
-      buttonClicked: function(index){
-        console.log(index);
-        return false;
-      },
-      destructiveButtonClicked: function() {
-        console.log(this);
-        return true;
+  })
+  .state('demo.signature', {
+    url: '/signature',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/setting-value.html',
+        controller: "SignCtrl"
       }
-    })
-  }
+    }
+  })
+  .state('demo.nickname', {
+    url: '/nickname',
+    views: {
+      "menuContent": {
+        templateUrl: 'templates/setting-value.html',
+        controller: 'NicknameCtrl'
+      }
+    }
+  })
+  .state("demo.region", {
+    url: '/region',
+    views: {
+      "menuContent": {
+        templateUrl: 'templates/choose-region.html',
+        controller: 'RegionCtrl'
+      }
+    }
+  })
+  .state('demo.province', {
+    url: '/region/:province',
+    views: {
+      "menuContent": {
+        templateUrl: 'templates/choose-region.html',
+        controller: 'RegionProCtrl'
+      }
+    }
+  });
+  $urlRouterProvider.otherwise('/demo');
 });
 

@@ -1,9 +1,12 @@
 angular.module('starter.controller' , [])
 
-.controller('DeomoCtrl', function($scope){
+.controller('DeomoCtrl', function($scope, $ionicSideMenuDelegate){
 	// $scope.actionsheet1=function () {
 	// 	console.log("aaa");
 	// }
+	 $scope.toggleLeft = function() {
+        $ionicSideMenuDelegate.toggleLeft();
+      };
 })
 .controller('SheetCtrl', function($scope, $ionicActionSheet, $cordovaActionSheet){
 	$scope.actionsheet=function(){
@@ -64,7 +67,7 @@ angular.module('starter.controller' , [])
 		{"name": "li"}
 	];
 	$scope.doRefresh=function(){
-		$http.get("../data/content.json")
+		$http.get("data/content.json")
 			.success(function(newStates){
 				var len=newStates.length;
 				for(var i = 0 ; i<len; i++){
@@ -76,7 +79,7 @@ angular.module('starter.controller' , [])
 			})
 	};
 	$scope.doPulling=function(){
-		console.log("do pull")
+		// console.log("do pull")
 	}
 })
 .controller("ForCtrl", function($scope){
@@ -121,11 +124,39 @@ angular.module('starter.controller' , [])
 	};
 	
 })
-.controller('SettinCtrl', ['$scope', 'professionData', function($scope, professionData){
-	$scope.myprofession = professionData.getter();
+.controller('SettinCtrl', ['$scope', '$ionicModal', 'regionService', 'User', function($scope, $ionicModal, regionService, User){
+// 设置
+
+	// 设置用户的属性（职业，签名，昵称）
+	$scope.user=User.userProperty;
+
+	//选择性别 
+	var genderlist=['男', '女'];
+	$scope.genderlist=genderlist;
+	$ionicModal.fromTemplateUrl("templates/choose-gender.html", {
+		scope: $scope
+		// ,
+		// animation: 'ease-in-out'
+	}).then(function(chooseGender){
+		$scope.modal=chooseGender;
+	});
+	$scope.chooseGender = function(index){
+		$scope.gender = genderlist[index];
+		$scope.modal.hide();
+	};
+
+	// 地区
+	$scope.$watch(function(){
+		return regionService.getter()
+	},function(newValue, oldValue){
+		if (newValue !==oldValue) {
+			$scope.region = regionService.getter();
+		}
+	});
 }])
 .controller("PersonalCtrl", function($scope, $cordovaCamera){
-	$scope.myPortrait="../img/ionic.png";
+// 个人资料设置
+	$scope.myPortrait="img/ionic.png";
 	$scope.takePhoto = function(){
 		$cordovaCamera.getPicture({
 			quality: 75,
@@ -141,7 +172,7 @@ angular.module('starter.controller' , [])
 		},false);
 	};
 })
-.controller("ProfessionCtrl", ['$scope', '$location', 'professionData', function($scope, $location, professionData){
+.controller("ProfessionCtrl", ['$scope', '$location', 'User', function($scope, $location, User){
 	var professions=[
 		{ name: '页面重构设计'},
 		{ name: "web前端工程师"},
@@ -159,12 +190,56 @@ angular.module('starter.controller' , [])
 	];
 	$scope.professions = professions;
 	$scope.selectJob=function(index){
-		console.log($scope.professions[index].name);
-		// $rootscope.myprofession=$scope.professions[index].name;
-		// professionData.name=$scope.professions[index].name;
-		professionData.setter($scope.professions[index].name);
-		console.log(professionData.getter());
-
+		// professionData.setter($scope.professions[index].name);
+		User.setProfession($scope.professions[index].name)
+		$location.url('/demo/setting');
+	};
+}])
+.controller("SignCtrl", function($scope, $location, User){
+// 签名设置
+	var personal={
+		id: 'signature',
+		title:"编辑签名"
+	};
+	$scope.personal=personal;
+	$scope.user=User.userProperty;
+})
+.controller("NicknameCtrl", ['$scope', '$location', 'User', function($scope, $location, User){
+// 昵称设置
+	var personal={
+		id:"nickname",
+		title: "编辑昵称"
+	};
+	$scope.personal= personal;
+	$scope.user=User.userProperty;
+}])
+.controller("RegionCtrl", ['$scope', '$location', '$ionicHistory', 'regionService', function($scope, $location, $ionicHistory, regionService){
+//选择地区
+	var city=regionService.city;
+	$scope.region = city;
+	$scope.first=true;
+	$scope.chooseCitys = function(c){
+		regionService.setter(c);
 		$location.path('/demo/setting');
 	}
+}])
+.controller('RegionProCtrl', ['$scope', '$location', '$ionicHistory', 'regionService' ,function($scope,$location, $ionicHistory, regionService){
+// 市级地区
+	var city=regionService.city;
+	$scope.first=false;
+	var path=$location.path(),
+		pathA=path.split('/'),
+		proId=pathA[pathA.length-1];
+	$scope.provinces = city[proId].city;
+
+	$scope.chooseCity = function(c){
+		$ionicHistory.nextViewOptions({
+		  disableBack: true
+		}); 
+
+		regionService.setter(c);
+		$location.path('/demo/setting');
+		// $ionicHistory.goBack(-2);
+	}
+
 }])

@@ -1,0 +1,13 @@
+<ion-view view-title="{{personal.title}}">
+	<ion-content>
+		<ion-list class="list">
+			<lable class="item item-input" ng-if="personal.id == 'signature'">
+				<textarea name="" id="" rows="2" placeholder="请输入您的签名" ng-model="user.signature"></textarea>
+			</lable>
+			<lable class="item item-input" ng-if="personal.id == 'nickname'">
+				<input type="text" placeholder="输入昵称" ng-model="user.nickname">
+			</lable>
+		</ion-list>
+		<a class="button button-full button-assertive" href="#/demo/setting">确定</a>
+	</ion-content>
+</ion-view>
