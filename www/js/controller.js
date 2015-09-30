@@ -17,9 +17,10 @@ angular.module('starter.controller' , [])
 			destructiveText: "删除",
 			destructiveButtonClicked: function(){
 				// 当destructive button被点击触发，return true关闭action sheet，return false 不关闭action sheet
+				console.log("destructiveText is triggle");
 				return true;
 			},
-			cancleText: "取消",	//好像在Android中这个是被隐藏的
+			cancelText: "取消",	//好像在Android中这个是被隐藏的
 			cancle: function(){
 				// 取消按钮被点击，或者返回按钮被点击触发
 				console.log('cancle is triggle');
@@ -192,7 +193,7 @@ angular.module('starter.controller' , [])
 	$scope.selectJob=function(index){
 		// professionData.setter($scope.professions[index].name);
 		User.setProfession($scope.professions[index].name)
-		$location.url('/demo/setting');
+		$location.url('/demo/tabs/setting');
 	};
 }])
 .controller("SignCtrl", function($scope, $location, User){
@@ -220,7 +221,7 @@ angular.module('starter.controller' , [])
 	$scope.first=true;
 	$scope.chooseCitys = function(c){
 		regionService.setter(c);
-		$location.path('/demo/setting');
+		$location.path('/demo/tabs/setting');
 	}
 }])
 .controller('RegionProCtrl', ['$scope', '$location', '$ionicHistory', 'regionService' ,function($scope,$location, $ionicHistory, regionService){
@@ -238,8 +239,104 @@ angular.module('starter.controller' , [])
 		}); 
 
 		regionService.setter(c);
-		$location.path('/demo/setting');
+		$location.path('/demo/tabs/setting');
 		// $ionicHistory.goBack(-2);
 	}
 
 }])
+.controller('ContactCtrl', function($scope, $cordovaContacts, $ionicPlatform) {
+	$ionicPlatform.ready(function() {
+
+		// $scope.contacts = {};
+		$scope.contactForm = {     // We will use it to save a contact
+
+			"displayName": "Gajotres",
+			"name": {
+				"givenName"  : "Dragan",
+				"familyName" : "Gaic",
+				"formatted"  : "Dragan Gaic"
+			},
+			"nickname": 'Gajotres',
+			"phoneNumbers": [
+				{
+					"value": "+385959052082",
+					"type": "mobile"
+				},
+				{
+					"value": "+385914600731",
+					"type": "phone"
+				}				
+			],
+			"emails": [
+				{
+					"value": "dragan.gaic@gmail.com",
+					"type": "home"
+				}
+			],
+			"addresses": [
+				{
+					"type": "home",
+					"formatted": "Some Address",
+					"streetAddress": "Some Address",
+					"locality":"Zagreb",
+					"region":"Zagreb",
+					"postalCode":"10000",
+					"country":"Croatia"
+				}
+			],
+			"ims": null,
+			"organizations": [
+				{
+					"type": "Company",
+					"name": "Generali",
+					"department": "IT",
+					"title":"Senior Java Developer"
+				}
+			],
+			"birthday": Date("08/01/1980"),
+			"note": "",
+			"photos": [
+				{
+					"value": "https://pbs.twimg.com/profile_images/570169987914924032/pRisI2wr_400x400.jpeg"
+				}
+			],
+			"categories": null,
+			"urls": null
+		}
+
+		$scope.addContact = function() {
+			// 新增保存一个联系人
+			$cordovaContacts.save($scope.contactForm).then(function(result) {
+				console.log("result: "+result);
+				$scope.result = result;
+			}, function(err) {
+				console.log(err)
+			});
+		};
+		$scope.getAllContacts = function(searchTerm) {
+			var opts = {
+				filter: searchTerm,	//搜索字段
+				multiple: true,		//返回匹配条件的任何联系人 default:false 返回第一个匹配的联系人
+				fields: ['displayName', 'phoneNumbers']	//搜索字段的区域
+				//desiredFields: [$cordovaContacts.id]	返回区域
+			};
+			if(ionic.Platform.isAndroid()) {
+				opts.hasPhoneNumber = true; //default: false
+			}
+			// 筛选联系人
+			$cordovaContacts.find(opts).then(function(allContacts) {
+				$scope.contacts = allContacts;
+				console.log(JSON.stringify(allContacts));
+			});
+		};
+
+		$scope.pickContactUsingNativeUI = function() {
+			// 弹出一个UI筛选联系人
+			$cordovaContacts.pickContact().then(function(contactPicked) {
+				$scope.contact = contactPicked;
+				console.log(JSON.stringify(contactPicked));
+			})
+		}
+	});
+
+})

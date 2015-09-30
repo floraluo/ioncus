@@ -1,0 +1,26 @@
+<ion-view title="Favorite">
+	<ion-content>
+		<button class="button button-full button-balanced" ng-click="addContact()">addContacts</button>
+		<div>
+			<h2></h2>
+			{{result}}
+		</div>
+		<button class="button button-full button-calm" ng-click="getAllContacts(filter)">getAllContacts</button>
+		<div>
+			<h2></h2>
+			
+			<ul class="list list-inset">
+				<label class="item item-input">
+					<i class="icon ion-ios-search placehold-icon"></i>
+					<input class="" type="text" ng-model="filter" ng-change="getAllContacts(filter)" placeholder="搜索你的联系人">
+				</label>
+				<li class="item" ng-repeat="con in contacts">{{con.displayName}}</li>
+			</ul>			
+		</div>
+		<button class="button button-full button-assertive" ng-click="pickContactUsingNativeUI()">pickContactUsingNativeUI</button>
+		<div>
+			<h2></h2>
+			<div>{{contact.displayName}}</div>
+		</div>
+	</ion-content>
+</ion-view>

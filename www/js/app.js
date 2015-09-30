@@ -16,7 +16,8 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
     }
   });
 })
-.config(function($stateProvider, $urlRouterProvider){
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){
+  $ionicConfigProvider.tabs.position('bottom').style('standard');
   $stateProvider.state('demo', {
     url: '/demo',
     abstract: true,
@@ -32,24 +33,38 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
     // }
   })
   .state('demo.tabs',{
-    url: '/home',
+    url: '/tabs',
     views: {
       'menuContent': {
+        templateUrl: 'templates/tabs.html'
+      }
+    }
+  })
+  .state('demo.tabs.home', {
+    url: '/home',
+    views: {
+      'tabHome': {
         templateUrl: 'templates/tab-home.html'
       }
-      // 'tabs': {
-      //   templateUrl: 'templates/tabs.html'
-      // }
     }
-    // views: {
-    //   'menuContent': {
-    //     templateUrl: 'templates/tabs.html',
-    //     controller: 'DeomoCtrl'
-    //   },
-    //   'tab-home': {
-    //     templateUrl: 'templates/tab-home.html'
-    //   }
-    // }
+  })
+  // .state('demo.tabs.tabsnd', {
+  //   url: '/favorite',
+  //   views: {
+  //     'tabFavorite': {
+  //       templateUrl: 'templates/tab-favorite.html',
+  //       controller: 'FovCtrl'
+  //     }
+  //   }
+  // })
+  .state('demo.contacts', {
+    url: '/contacts',
+    views: {
+      "menuContent": {
+        templateUrl: 'templates/contacts.html',
+        controller: 'ContactCtrl'
+      }
+    }
   })
   .state('demo.sheet',{
     url: '/sheet',
@@ -84,69 +99,69 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       }
     }
   })
-  .state('demo.setting',{
+  .state('demo.tabs.setting',{
     url: '/setting',
     // cache: false,
     views: {
-      'menuContent': {
+      'tabSet': {
         templateUrl: 'templates/setting.html',
         controller: "SettinCtrl"
       }
     }
   })
-  .state('demo.personal', {
+  .state('demo.tabs.personal', {
     url: '/personal',
     views: {
-      'menuContent': {
+      'tabSet': {
         templateUrl: 'templates/personal.html'
       }
     }
   })
-  .state('demo.selectProfession', {
+  .state('demo.tabs.selectProfession', {
     url: '/selectProfession',
     views: {
-      'menuContent': {
+      'tabSet': {
         templateUrl: 'templates/select-profession.html',
         controller: "ProfessionCtrl"
       }
     }
   })
-  .state('demo.signature', {
+  .state('demo.tabs.signature', {
     url: '/signature',
     views: {
-      'menuContent': {
+      'tabSet': {
         templateUrl: 'templates/setting-value.html',
         controller: "SignCtrl"
       }
     }
   })
-  .state('demo.nickname', {
+  .state('demo.tabs.nickname', {
     url: '/nickname',
     views: {
-      "menuContent": {
+      "tabSet": {
         templateUrl: 'templates/setting-value.html',
         controller: 'NicknameCtrl'
       }
     }
   })
-  .state("demo.region", {
+  .state("demo.tabs.region", {
     url: '/region',
     views: {
-      "menuContent": {
+      "tabSet": {
         templateUrl: 'templates/choose-region.html',
         controller: 'RegionCtrl'
       }
     }
   })
-  .state('demo.province', {
+  .state('demo.tabs.province', {
     url: '/region/:province',
     views: {
-      "menuContent": {
+      "tabSet": {
         templateUrl: 'templates/choose-region.html',
         controller: 'RegionProCtrl'
       }
     }
   });
-  $urlRouterProvider.otherwise('/demo');
+  $urlRouterProvider.otherwise('demo/tabs/home');
 });
 

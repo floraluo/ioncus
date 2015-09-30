@@ -3,7 +3,7 @@
 		<ion-list>
 			<ion-item ng-repeat="pro in region" ng-show="first">
 				<div ng-if="!pro.province" ng-click="chooseCitys(pro.cn_name)">{{pro.cn_name}}</div>
-				<a class='block' ng-if="pro.province" href="#/demo/region/{{$index}}">{{pro.province}}</a>
+				<a class='block' ng-if="pro.province" href="#/demo/tabs/region/{{$index}}">{{pro.province}}</a>
 			</ion-item>
 			<ion-item ng-repeat="city in provinces" ng-show='!first'>
 				<div ng-click="chooseCity(city.cn_name)">{{city.cn_name}}</div>

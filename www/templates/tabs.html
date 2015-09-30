@@ -1,41 +1,14 @@
-
-<!-- <ion-tabs class=" tabs-icon-top">
-	<ion-tab title="Home" icon-on="ion-ios-home" icon-off="ion-ios-home-outline" href="#/demo/home">
-
-		<ion-nav-view name="tab-home"></ion-nav-view>
+<ion-tabs class="tabs-positive tabs-icon-top">
+	<ion-tab title="Home" icon-on="ion-ios-home" icon-off="ion-ios-home-outline" href="#/demo/tabs/home">
+		<ion-nav-view name="tabHome"></ion-nav-view>
 	</ion-tab>
-	<ion-tab title="Account"  icon-on="ion-ios-home" icon-off="ion-ios-home-outline"></ion-tab>
-</ion-tabs> -->
-<!-- <ion-view>
-	<ion-nav-buttons side="left">
-		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
-	</ion-nav-buttons>
-	<ion-content>
-		<div class="tabs tabs-icon-top">
-  <a class="tab-item">
-    <i class="icon ion-home"></i>
-    Home
-  </a>
-  <a class="tab-item">
-    <i class="icon ion-star"></i>
-    Favorites
-  </a>
-  <a class="tab-item">
-    <i class="icon ion-gear-a"></i>
-    Settings
-  </a>
-</div>
-	</ion-content>
-</ion-view> -->
-
-<div class="tabs tabs-icon-only">
-        <a nav-clear class="tab-item disable-user-behavior active" title="Home" nav-clear ui-sref="snd.home">
-          <i class="icon ion-home"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
-        </a>
-        <a nav-clear class="tab-item disable-user-behavior" title="Chat" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" ui-sref="snd.chat">
-          <i class="icon ion-chatbubbles"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
-        </a>
-        <a nav-clear class="tab-item disable-user-behavior" title="Drink" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" ui-sref="snd.drink">
-          <i class="icon ion-wineglass"></i><span class="tab-title ng-binding" ng-bind-html="title"></span>
-        </a>
-      </div>
+	<!-- <ion-tab title="Favorites" icon-on="ion-ios-star" icon-off="ion-ios-star-outline" href="#/demo/tabs/favorite">
+		<ion-nav-view name="tabFavorite"></ion-nav-view>
+	</ion-tab> -->
+	<ion-tab title="Favorites" icon-on="ion-ios-star" icon-off="ion-ios-star-outline" href="#/demo/contacts">
+		<ion-nav-view name="tabFavorite"></ion-nav-view>
+	</ion-tab>
+	<ion-tab title="Settings"  icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline" href="#/demo/tabs/setting">
+		<ion-nav-view name="tabSet"></ion-nav-view>
+	</ion-tab>
+</ion-tabs>
