@@ -31,35 +31,25 @@ angular.module('starter.controller' , [])
 				return true;
 			}
 		})
-		// var options = {
-		// 	title: 'What do you want with this image?',
-		// 	buttonLabels: ['Share via Facebook', 'Share via Twitter'],
-		// 	addCancelButtonWithLabel: 'Cancel',
-		// 	androidEnableCancelButton : true,
-		// 	winphoneEnableCancelButton : true,
-		// 	addDestructiveButtonWithLabel : 'Delete it'
-		// };
-		// $cordovaActionSheet.show(options)
-		// .then(function(btnIndex) {
-		// 	var index = btnIndex;
-		// });
-	} 
-	var options = {
-		title: 'What do you want with this image?',
-		buttonLabels: ['Share via Facebook', 'Share via Twitter'],
-		addCancelButtonWithLabel: 'Cancel',
-		androidEnableCancelButton : true,
-		winphoneEnableCancelButton : true,
-		addDestructiveButtonWithLabel : 'Delete it'
 	};
 
+ // ngcordova actionsheet 插件
+	// var options = {
+	// 	title: 'What do you want with this image?',
+	// 	buttonLabels: ['Share via Facebook', 'Share via Twitter'],
+	// 	addCancelButtonWithLabel: 'Cancel',
+	// 	androidEnableCancelButton : true,
+	// 	winphoneEnableCancelButton : true,
+	// 	addDestructiveButtonWithLabel : 'Delete it'
+	// };
 
-	document.addEventListener("deviceready", function () {
-		$cordovaActionSheet.show(options)
-			.then(function(btnIndex) {
-		    	var index = btnIndex;
-		  	});
-	}, false);
+
+	// document.addEventListener("deviceready", function () {
+	// 	$cordovaActionSheet.show(options)
+	// 		.then(function(btnIndex) {
+	// 	    	var index = btnIndex;
+	// 	  	});
+	// }, false);
 })
 .controller('ContCtrl',function($scope, $http){
 	$scope.states=[
@@ -340,3 +330,32 @@ angular.module('starter.controller' , [])
 	});
 
 })
+.controller('MoreSetCtrl', ['$scope' , 'JPush', function($scope , JPush) {
+	$scope.enableNotif = true;
+	$scope.notification={
+		content:""
+	};
+	$scope.toggleNotification = function(){
+		if($scope.enableNotif){
+			JPush.stopPush();
+			$scope.enableNotif = false;
+		}else{
+			JPush.resumePush();
+			$scope.enableNotif = true;
+		}
+	};
+	// $scope.receiveNotification = function(){
+		// document.addEventListener("jpush.openNotification", function(){
+		// 	var alertContent;
+		// 	if(device.platform == "Android"){
+		// 		alertContent = window.plugins.jPushPlugin.openNotification.alert;
+		// 		console.log("log1"+window.plugins.jPushPlugin.openNotification);
+		// 		console.log('log2: '+window.plugins.jPushPlugin.openNotification.alert);
+		// 	}else {
+		// 		alertContent = event.aps.alert;
+		// 	}
+		// 	alert("last"+alertContent);
+		// 	$scope.notification.content=alertContent;
+		// },false)
+	// }
+}])

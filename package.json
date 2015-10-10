@@ -19,7 +19,10 @@
     "cordova-plugin-console",
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    "ionic-plugin-deploy",
+    "F:\\jpush-phonegap-plugin",
+    "f:\\plugin\\jpush-phonegap-plugin"
   ],
   "cordovaPlatforms": [
     "android"

@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ngCordova'])
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $http, $cordovaPush, JPush) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -14,6 +14,52 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+    var setTagsWithAliasCallback = function(event){
+      console.log("result code: " + event.resultCode+' tags:'+event.tags+' alias:'+event.alias);
+    };
+
+    var openNotificationInAndroidCallback = function(data){
+      var json = data;
+      console.log('json: '+json);
+      if(typeof data === 'string'){
+        json=JSON.parse(data);
+      }
+      // var id=json.extras['cn.jpush.android.EXTRA'].id;
+      // console.log(id);
+      // $state.go('detail',{id:id});
+    };
+
+    var openNotificationCallBack = function(){
+      var alertContent;
+      if(device.platform == "Android"){
+        alertContent = window.plugins.jPushPlugin.openNotification.alert;
+        window.alert('openNoti log1: '+window.plugins.jPushPlugin.openNotification.alert);
+        window.alert('openNoti log2: '+window.plugins.jPushPlugin.openNotification.extras.app);
+      }else {
+        alertContent = event.aps.alert;
+      }
+      alert("openNoti last"+alertContent);
+    };
+    var receiveNotificationCallBack = function(){
+      var alertContent;
+      if(device.platform == "Android"){
+        alertContent = window.plugins.jPushPlugin.receiveNotification.alert;
+        window.alert('receiveNoti log1: '+window.plugins.jPushPlugin.receiveNotification.alert);
+        window.alert('receiveNoti log2: '+window.plugins.jPushPlugin.receiveNotification.extras);
+      }else {
+        alertContent = event.aps.alert;
+      }
+      alert("receiveNoti last"+alertContent);
+    }
+    var config={
+      stac:setTagsWithAliasCallback,
+      oniac:openNotificationInAndroidCallback,
+      openNoti:openNotificationCallBack,
+      receiveNoti: receiveNotificationCallBack
+    };
+    JPush.init(config); 
+    JPush.setTagsWithAlias(['tag1'],'1');
   });
 })
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){
@@ -159,6 +205,15 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       "tabSet": {
         templateUrl: 'templates/choose-region.html',
         controller: 'RegionProCtrl'
+      }
+    }
+  })
+  .state('demo.tabs.more', {
+    url: '/more',
+    views: {
+      'tabSet': {
+        templateUrl: 'templates/setting-more.html',
+        controller: 'MoreSetCtrl'
       }
     }
   });
