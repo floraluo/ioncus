@@ -94,6 +94,15 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       }
     }
   })
+  .state('demo.tabs.clipboard', {
+    url: '/clipboard',
+    views: {
+      'tabHome': {
+        templateUrl: 'templates/clipboard.html',
+        controller: 'ClipboardCtrl'
+      }
+    }
+  })
   // .state('demo.tabs.tabsnd', {
   //   url: '/favorite',
   //   views: {

@@ -359,3 +359,27 @@ angular.module('starter.controller' , [])
 		// },false)
 	// }
 }])
+.controller("ClipboardCtrl", function($scope, $cordovaClipboard){
+	$scope.copy = function(text){
+		$cordovaClipboard
+		    .copy(text)
+		    .then(function () {
+		      // success
+		      window.alert("Copy successfully!");
+		    }, function () {
+		      // error
+	    });	
+	};
+	
+    $scope.paste = function(){
+    	$cordovaClipboard
+	    .paste()
+	    .then(function (result) {
+	      // success, use result
+	      $scope.clipboard=result;
+	    }, function () {
+	      // error
+	    });
+    }
+  
+})

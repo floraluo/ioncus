@@ -1,0 +1,13 @@
+<ion-view title="clipboard test">
+	<ion-content class="padding">
+		<ion-list>
+			<ion-item>
+				test text
+				<button class="button button-assertive"  ng-click="copy('test text')">click to copy the text</button>
+			</ion-item>
+			<label class="item item-input">
+				<input type="text" placeholder="测试复制粘贴功能" ng-click="paste()" ng-model="clipboard">
+			</label>
+		</ion-list>
+	</ion-content>
+</ion-view>
