@@ -225,6 +225,15 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
         controller: 'MoreSetCtrl'
       }
     }
+  })
+  .state('demo.tabs.about', {
+    url: '/about', 
+    views: {
+      'tabSet': {
+        templateUrl: 'templates/about.html',
+        controller: 'AboutCtrl'
+      }
+    }
   });
   $urlRouterProvider.otherwise('demo/tabs/home');
 });

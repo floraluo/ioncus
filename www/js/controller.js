@@ -383,3 +383,11 @@ angular.module('starter.controller' , [])
     }
   
 })
+.controller('AboutCtrl', function($scope, $cordovaAppVersion) {
+	$scope.app={};
+	$scope.app.version = '0.0.1';
+	$scope.app.author = 'floraluo'
+	// $cordovaAppVersion.getVersionNumber().then(function (version) {
+	// 	$scope.app.version = version;
+	// });
+})
