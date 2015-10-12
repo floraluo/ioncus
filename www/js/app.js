@@ -90,7 +90,8 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
     url: '/home',
     views: {
       'tabHome': {
-        templateUrl: 'templates/tab-home.html'
+        templateUrl: 'templates/tab-home.html',
+        controller: 'HomeCtrl'
       }
     }
   })
@@ -103,6 +104,23 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       }
     }
   })
+  .state('demo.tabs.example', {
+    url: '/example',
+    views: {
+      'tabExample': {
+        templateUrl: 'templates/example.html'
+      }
+    }
+  })
+  .state('demo.tabs.badge', {
+    url: '/badge',
+    views: {
+      'tabExample': {
+        templateUrl: 'templates/badge.html',
+        controller: 'BadgeCtrl'
+      }
+    }
+  })
   // .state('demo.tabs.tabsnd', {
   //   url: '/favorite',
   //   views: {
@@ -112,10 +130,10 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
   //     }
   //   }
   // })
-  .state('demo.contacts', {
+  .state('demo.tabs.contacts', {
     url: '/contacts',
     views: {
-      "menuContent": {
+      "tabExample": {
         templateUrl: 'templates/contacts.html',
         controller: 'ContactCtrl'
       }

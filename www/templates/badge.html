@@ -1,0 +1,16 @@
+<ion-view view-title="badge test">
+	<ion-content class="padding">
+		<button class="button button-small button-balanced button-block" ng-click="hasPermission()">hasPermission()</button>
+		<div class="button-bar">
+			<button class="button button-positive" ng-click="setBadge(true)">setBadge(true)</button>
+			<button class="button button-positive" ng-click="setBadge(false)">setBadge(false)</button>
+		</div>
+		<div class="button-bar padding-top">
+			<button class="button button-calm" ng-click="getBadge()">getBadge()</button>
+			<button class="button button-calm" ng-click="clearBadge()">clearBadge()</button>
+		</div>		
+		<div class="padding">
+			{{badge}}
+		</div>
+	</ion-content>
+</ion-view>

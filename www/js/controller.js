@@ -1,5 +1,12 @@
 angular.module('starter.controller' , [])
 
+.controller('HomeCtrl', function($ionicPlatform, $scope, $cordovaBadge) {
+	// $cordovaBadge.set(3).then(function() {
+	// 	// You have permission, badge set.
+	// }, function(err) {
+	// 	// You do not have permission.
+	// });
+})
 .controller('DeomoCtrl', function($scope, $ionicSideMenuDelegate){
 	// $scope.actionsheet1=function () {
 	// 	console.log("aaa");
@@ -382,6 +389,45 @@ angular.module('starter.controller' , [])
 	    });
     }
   
+})
+.controller("BadgeCtrl", function($scope, $cordovaBadge) {
+	$scope.hasPermission = function(){
+		$cordovaBadge.hasPermission().then(function(yes){
+			window.alert("you have the permission")
+		}, function(no){
+
+		});
+	};
+	$scope.setBadge = function(rand){
+		var number = rand ? Math.round(Math.random()*100): 10;
+		$cordovaBadge
+		.set(number)
+		.then(function(){
+			window.alert("you have set the badge");
+		}, function(err){
+
+		});
+	};
+	$scope.getBadge = function(){
+		$cordovaBadge
+		.get()
+		.then(function(badge){
+			$scope.badge = badge;
+		},function(err){
+			window.alert(err);
+		})
+	};
+	$scope.clearBadge = function(){
+		$cordovaBadge
+		.clear()
+		.then(function(){
+			$scope.badge = 0;
+			window.alert("badge have cleared");
+		}, function(){
+			window.alert("clear err")
+		})
+	};
+
 })
 .controller('AboutCtrl', function($scope, $cordovaAppVersion) {
 	$scope.app={};
