@@ -95,20 +95,12 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       }
     }
   })
-  .state('demo.tabs.clipboard', {
-    url: '/clipboard',
-    views: {
-      'tabHome': {
-        templateUrl: 'templates/clipboard.html',
-        controller: 'ClipboardCtrl'
-      }
-    }
-  })
   .state('demo.tabs.example', {
     url: '/example',
     views: {
       'tabExample': {
-        templateUrl: 'templates/example.html'
+        templateUrl: 'templates/example.html',
+        controller: 'ExampleCtrl'
       }
     }
   })
@@ -118,6 +110,15 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       'tabExample': {
         templateUrl: 'templates/badge.html',
         controller: 'BadgeCtrl'
+      }
+    }
+  })
+  .state('demo.tabs.clipboard', {
+    url: '/clipboard',
+    views: {
+      'tabExample': {
+        templateUrl: 'templates/clipboard.html',
+        controller: 'ClipboardCtrl'
       }
     }
   })

@@ -366,7 +366,71 @@ angular.module('starter.controller' , [])
 		// },false)
 	// }
 }])
-.controller("ClipboardCtrl", function($scope, $cordovaClipboard){
+.controller("ExampleCtrl", function($scope, $ionicPlatform, $cordovaDialogs,$cordovaBarcodeScanner, $cordovaInAppBrowser) {
+	$ionicPlatform.ready(function(){
+		$scope.codeScanner = function(){
+			var options = {
+				location: 'no',
+				clearcache: 'no',
+				toolbar: 'no'
+			};
+
+			$cordovaBarcodeScanner
+			.scan()
+			.then(function(barCodeData){
+				$cordovaDialogs.alert(barCodeData);
+				
+				// $cordovaInAppBrowser
+				// .open(barCodeData.text, "_blank", options)
+				// .then(function(){
+				// 	console.log("scan success");
+				// });
+			}, function(error){
+				$cordovaDialogs.alert(error);
+			})
+		}
+	});
+})
+.controller("BadgeCtrl", function($scope, $cordovaBadge, $cordovaDialogs) {
+	$scope.hasPermission = function(){
+		$cordovaBadge.hasPermission().then(function(yes){
+			$cordovaDialogs.alert("you have the permission")
+		}, function(no){
+
+		});
+	};
+	$scope.setBadge = function(rand){
+		var number = rand ? Math.round(Math.random()*100): 10;
+		$cordovaBadge
+		.set(number)
+		.then(function(){
+			$cordovaDialogs.alert("you have set the badge");
+		}, function(err){
+
+		});
+	};
+	$scope.getBadge = function(){
+		$cordovaBadge
+		.get()
+		.then(function(badge){
+			$scope.badge = badge;
+		},function(err){
+			$cordovaDialogs.alert(err);
+		})
+	};
+	$scope.clearBadge = function(){
+		$cordovaBadge
+		.clear()
+		.then(function(){
+			$scope.badge = 0;
+			$cordovaDialogs.alert("badge have cleared");
+		}, function(){
+			$cordovaDialogs.alert("clear err")
+		})
+	};
+
+})
+.controller("ClipboardCtrl", function($scope, $cordovaClipboard, $cordovaInAppBrowser, $rootScope){
 	$scope.copy = function(text){
 		$cordovaClipboard
 		    .copy(text)
@@ -387,47 +451,34 @@ angular.module('starter.controller' , [])
 	    }, function () {
 	      // error
 	    });
-    }
-  
-})
-.controller("BadgeCtrl", function($scope, $cordovaBadge) {
-	$scope.hasPermission = function(){
-		$cordovaBadge.hasPermission().then(function(yes){
-			window.alert("you have the permission")
-		}, function(no){
-
+    };
+    $scope.inAppBrowser = function(target){
+    	// target 有三个值
+    	// _self:如果路由中有这个url，就打开视图view，否则就在InAppBrowser打开
+    	// _blank：在InAPPBrowser中打开
+    	// _system: Opens in the system's web browser
+    	$cordovaInAppBrowser
+    	.open("http://www.baidu.com", target)
+    	.then(function(){
+    		console.log("success");
+    	});
+    	// $cordovaInAppBrowser.close();
+    };
+	$rootScope.$on('$cordovaInAppBrowser:loadstop', function(e, event){
+		// insert CSS via code / file
+		$cordovaInAppBrowser.insertCSS({
+		  code: 'body {background-color:blue;}'
 		});
-	};
-	$scope.setBadge = function(rand){
-		var number = rand ? Math.round(Math.random()*100): 10;
-		$cordovaBadge
-		.set(number)
-		.then(function(){
-			window.alert("you have set the badge");
-		}, function(err){
 
+		// insert Javascript via code / file
+		$cordovaInAppBrowser.executeScript({
+		  file: 'script.js'
 		});
-	};
-	$scope.getBadge = function(){
-		$cordovaBadge
-		.get()
-		.then(function(badge){
-			$scope.badge = badge;
-		},function(err){
-			window.alert(err);
-		})
-	};
-	$scope.clearBadge = function(){
-		$cordovaBadge
-		.clear()
-		.then(function(){
-			$scope.badge = 0;
-			window.alert("badge have cleared");
-		}, function(){
-			window.alert("clear err")
-		})
-	};
+	});
 
+	$rootScope.$on('$cordovaInAppBrowser:exit', function(e, event){
+		console.log("exit");
+	});
 })
 .controller('AboutCtrl', function($scope, $cordovaAppVersion) {
 	$scope.app={};

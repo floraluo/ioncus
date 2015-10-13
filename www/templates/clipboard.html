@@ -1,13 +1,18 @@
 <ion-view title="clipboard test">
 	<ion-content class="padding">
-		<ion-list>
-			<ion-item>
-				test text
-				<button class="button button-assertive"  ng-click="copy('test text')">click to copy the text</button>
-			</ion-item>
+		<div class="card">
+			<div class="item item-text-wrap">copy text</div>
+		</div>
+		<button class="button button-assertive button-block"  ng-click="copy('copy text')">click to copy the text</button>
+		<div class="list">
 			<label class="item item-input">
 				<input type="text" placeholder="测试复制粘贴功能" ng-click="paste()" ng-model="clipboard">
 			</label>
-		</ion-list>
+		</div>
+		<!-- <div class="button-bar"> -->
+			<a class="button button-small button-block button-royal" ng-click="inAppBrowser('_self')">inAppBrowser_self</a>
+			<a class="button button-small button-block button-energized" ng-click="inAppBrowser('_blank')">inAppBrowser_blank</a>
+			<a class="button button-small button-block button-balanced" ng-click="inAppBrowser('_system')">inAppBrowser_system</a>
+		<!-- </div> -->
 	</ion-content>
 </ion-view>
