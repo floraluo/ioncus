@@ -6,6 +6,8 @@
 angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ngCordova'])
 .run(function($ionicPlatform, $http, $cordovaPush, JPush) {
   $ionicPlatform.ready(function() {
+
+    // $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|content|file|assets-library):|data:image\//);
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -104,6 +106,15 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       }
     }
   })
+  .state('demo.tabs.contacts', {
+    url: '/contacts',
+    views: {
+      "tabExample": {
+        templateUrl: 'templates/contacts.html',
+        controller: 'ContactCtrl'
+      }
+    }
+  })
   .state('demo.tabs.badge', {
     url: '/badge',
     views: {
@@ -122,6 +133,15 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       }
     }
   })
+  .state('demo.tabs.imagepicker', {
+    url: '/imagepicker',
+    views: {
+      'tabExample': {
+        templateUrl: 'templates/image-picker.html',
+        controller: 'ImgPickerCtrl'
+      }
+    }
+  })
   // .state('demo.tabs.tabsnd', {
   //   url: '/favorite',
   //   views: {
@@ -131,15 +151,6 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
   //     }
   //   }
   // })
-  .state('demo.tabs.contacts', {
-    url: '/contacts',
-    views: {
-      "tabExample": {
-        templateUrl: 'templates/contacts.html',
-        controller: 'ContactCtrl'
-      }
-    }
-  })
   .state('demo.sheet',{
     url: '/sheet',
     views: {

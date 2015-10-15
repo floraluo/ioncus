@@ -457,6 +457,9 @@ angular.module('starter.controller' , [])
     	// _self:如果路由中有这个url，就打开视图view，否则就在InAppBrowser打开
     	// _blank：在InAPPBrowser中打开
     	// _system: Opens in the system's web browser
+
+    	// open 方法第三个参数 options
+
     	$cordovaInAppBrowser
     	.open("http://www.baidu.com", target)
     	.then(function(){
@@ -479,6 +482,28 @@ angular.module('starter.controller' , [])
 	$rootScope.$on('$cordovaInAppBrowser:exit', function(e, event){
 		console.log("exit");
 	});
+})
+.controller("ImgPickerCtrl", function($scope, $cordovaImagePicker) {
+	$scope.images=[];
+	$scope.selectImg = function(){
+
+		var options = {
+			maximumImagesCount: 5,
+			// width: 500,
+			// height: 500,
+			// quality: 80
+		};
+		// $scope.image={};
+		$cordovaImagePicker.getPictures(options)
+		.then(function(results){
+			for(var i=0; i<results.length; i++){
+				console.log("iamge URI: " + results[i]);
+				// $scope.image.i = results[i];
+				$scope.images.push(results[i]);
+			}
+			// console.log($scope.images);
+		});
+	}
 })
 .controller('AboutCtrl', function($scope, $cordovaAppVersion) {
 	$scope.app={};

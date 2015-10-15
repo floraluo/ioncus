@@ -1,0 +1,13 @@
+<ion-view view-title="多图选择">
+	<ion-content>
+		<div class="padding">
+			<button class="button button-small button-energized button-block" ng-click="selectImg()">选择图片</button>
+		</div>
+		<div class="list card" ng-repeat="img in images">
+			<div class="item item-image">
+				<img src="{{img}}">
+				{{img}}
+			</div>
+		</div>
+	</ion-content>
+</ion-view>
