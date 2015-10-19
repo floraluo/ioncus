@@ -17,6 +17,7 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       StatusBar.styleDefault();
     }
 
+    // 设置标签和别名
     var setTagsWithAliasCallback = function(event){
       console.log("result code: " + event.resultCode+' tags:'+event.tags+' alias:'+event.alias);
     };
@@ -31,7 +32,7 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       // console.log(id);
       // $state.go('detail',{id:id});
     };
-
+    // 打开通知消息回调
     var openNotificationCallBack = function(){
       var alertContent;
       if(device.platform == "Android"){
@@ -43,6 +44,7 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       }
       alert("openNoti last"+alertContent);
     };
+    // 接收通知消息回调
     var receiveNotificationCallBack = function(){
       var alertContent;
       if(device.platform == "Android"){
@@ -60,8 +62,10 @@ angular.module('starter', ['ionic', 'starter.controller', 'starter.servive', 'ng
       openNoti:openNotificationCallBack,
       receiveNoti: receiveNotificationCallBack
     };
-    JPush.init(config); 
-    JPush.setTagsWithAlias(['tag1'],'1');
+    // 极光推送初始化
+    // JPush.init(config); 
+    // 设置别名和标签
+    // JPush.setTagsWithAlias(['tag1'],'1');
   });
 })
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){

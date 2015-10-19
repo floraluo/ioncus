@@ -1,11 +1,21 @@
 angular.module('starter.controller' , [])
 
-.controller('HomeCtrl', function($ionicPlatform, $scope, $cordovaBadge) {
+.controller('HomeCtrl', function($ionicSlideBoxDelegate, $scope) {
 	// $cordovaBadge.set(3).then(function() {
 	// 	// You have permission, badge set.
 	// }, function(err) {
 	// 	// You do not have permission.
 	// });
+	$scope.next = function() {
+		console.log('NEXT');
+		$scope.$broadcast('slideBox.nextSlide');
+	};
+	$scope.slideChanged = function(index) {
+		// console.log('Slide changed', index);
+	};
+	$scope.pagerClick = function(index){
+		$ionicSlideBoxDelegate.slide(index);
+	}
 })
 .controller('DeomoCtrl', function($scope, $ionicSideMenuDelegate){
 	// $scope.actionsheet1=function () {
