@@ -1,9 +1,16 @@
 <ion-view view-title="Home">
 	<ion-content class="padding">
 	<!-- home -->
-		<ion-slide-box on-slide-changed="slideChanged(index)" does-continue="true" auto-play="true" slide-interval="2000" show-pager="false" pager-click="pagerClick(index)" >
+		<ion-slide-box on-slide-changed="slideChanged(index)" does-continue="true" auto-play="true" slide-interval="2000" show-pager="false" pager-click="pagerClick(index)" active-slide="1">
 		<!-- show-pager:显示当前圆圈 pager-click: show-pager为true的时候，点击圈圈有效 active-slide：从哪一个slide开始 -->
-	        <ion-slide>
+			<!-- 使用ng-repeate 生成ion-slide -->
+			<ion-slide ng-repeat="img in imgGroup">
+				<img ng-src='{{img.src}}' alt="" width="100%">
+				<p class="padding">{{img.desc}}</p>
+			</ion-slide>
+
+
+	        <!-- <ion-slide>
 	            <a href="http://www.baidu.com"><img src="img/ionic.png"></a>
 	        </ion-slide>
 	        <ion-slide>
@@ -23,7 +30,7 @@
 	          <p>
 	            Too bad!
 	          </p>
-	        </ion-slide>
+	        </ion-slide> -->
 		</ion-slide-box>
 	</ion-content>
 </ion-view>

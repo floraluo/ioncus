@@ -6,6 +6,12 @@ angular.module('starter.controller' , [])
 	// }, function(err) {
 	// 	// You do not have permission.
 	// });
+	var imgsrc=[
+		{'id':'001','src':'img/img1.jpg','desc':'green1'},
+		{'id':'002','src':'img/img2.jpg','desc':'green2'},
+		{'id':'003','src':'img/img3.jpg','desc':'green3'}
+	];
+	$scope.imgGroup=imgsrc;
 	$scope.next = function() {
 		console.log('NEXT');
 		$scope.$broadcast('slideBox.nextSlide');
