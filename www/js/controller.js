@@ -112,9 +112,9 @@ angular.module('starter.controller' , [])
 })
 .controller("GestureCtrl",function ($scope, $ionicGesture, $element) {
 	var obj = document.getElementsByTagName('div')
-	$ionicGesture.on('tap',function(){
-		console.log("hahahahah");
-	},$element,obj);
+	// $ionicGesture.on('duobletap',function(){
+	// 	console.log("$ionicGesture.on()"); 
+	// },$element,obj);
 	$scope.onHold = function(){
 		console.log("hold")
 	};
@@ -135,6 +135,12 @@ angular.module('starter.controller' , [])
 	};
 	$scope.onDoubleTap = function(){
 		console.log("onDoubleTap");
+	};
+	$scope.onDragLeft = function(){
+		console.log("onDragLeft");
+	};
+	$scope.onSwipe = function(){
+		console.log("onSwipe");
 	};
 	
 })
@@ -520,6 +526,9 @@ angular.module('starter.controller' , [])
 			// console.log($scope.images);
 		});
 	}
+})
+.controller('BaiduMapCtrl', function($scope){
+
 })
 .controller('AboutCtrl', function($scope, $cordovaAppVersion) {
 	$scope.app={};

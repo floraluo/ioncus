@@ -10,16 +10,17 @@
   </ion-nav-back-button> -->
 	<ion-content class="padding" ng-controller="GestureCtrl" has-header="true">
 		<button class="button button-light" on-hold="onHold()" on-tap="onTap()" on-double-tap="onDoubleTap()" on-touch="onTouch()">on hold</button>
-		<!-- <button class="button button-light" on-tap="onTap()">on tap</button>
+		<button class="button button-light" on-tap="onTap()">on tap</button>
 		<button class="button button-light" on-double-tap="onDoubleTap()">on double tap</button>
 		<button class="button button-light" on-touch="onTouch()">on touch</button>
 		<button class="button button-light" on-release="onRelease()">on release</button>
 		<button class="button button-light" on-drag="onDrag()">on drag</button>
-		<button class="button button-light" on-drag="onDrag()">on drag</button> -->
-		<div class="item item-divider">dddd</div>
-		<div class="padding list">
+		<button class="button button-light" on-drag="onDragLeft()">on drag left</button>
+		<button class="button button-light" on-drag="onSwipe()">on swipe</button>
+		<!-- <div class="item item-divider">dddd</div> -->
+		<!-- <div class="padding list">
 			<label class="item item-input"><input type="text" placeholder="姓名"></label>
 			<label class="item item-input"><input type="password" placeholder="密码"></label>
-		</div>
+		</div> -->
 	</ion-content>
 </ion-view>
