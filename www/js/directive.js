@@ -41,17 +41,17 @@ angular.module('starter.directive', [])
 
 
 			// 浏览器定位
-			var geolocation = new BMap.Geolocation();
-			geolocation.getCurrentPosition(function(r){
-				if(this.getStatus() == BMAP_STATUS_SUCCESS){
-					var mk = new BMap.Marker(r.point);
-					map.addOverlay(mk);
-					map.panTo(r.point);
-				}
-				else {
-					alert('failed'+this.getStatus());
-				}        
-			},{enableHighAccuracy: true})
+			// var geolocation = new BMap.Geolocation();
+			// geolocation.getCurrentPosition(function(r){
+			// 	if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			// 		var mk = new BMap.Marker(r.point);
+			// 		map.addOverlay(mk);
+			// 		map.panTo(r.point);
+			// 	}
+			// 	else {
+			// 		alert('failed'+this.getStatus());
+			// 	}        
+			// },{enableHighAccuracy: true})
 			/*关于状态码
 			BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
 			BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
@@ -64,6 +64,19 @@ angular.module('starter.directive', [])
 			BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
 			*/
 
+			// html5 定位
+			if (navigator.geolocation){
+		    	navigator.geolocation.getCurrentPosition(function(position){
+		    		var point = {
+			    			lng: position.coords.longitude,
+			    			lat: position.coords.latitude
+		    			},
+		    			mk = new BMap.Marker(new BMap.Point(point.lng, point.lat));
+		    			map.addOverlay(mk);
+		    			// map.panTo(point.lng, point.lat);
+						map.centerAndZoom(new BMap.Point(point.lng, point.lat), 11);
+		    	});
+		    }
 			// 根据ip定位
 			// function myFun(result){
 			// 	var cityName = result.name;
@@ -80,40 +93,42 @@ angular.module('starter.directive', [])
 			// map.addControl(stCtrl);
 
 			// 默认气泡标注
-			var marker = new BMap.Marker(point);        // 创建标注    
-			map.addOverlay(marker);                     // 将标注添加到地图中
+			// var marker = new BMap.Marker(point);        // 创建标注    
+			// map.addOverlay(marker);                     // 将标注添加到地图中
+
 			// 监听标注事件
-			marker.addEventListener("click", function(){    
-				var opts = {    
-				 width : 250,     // 信息窗口宽度    
-				 height: 50,     // 信息窗口高度    
-				 title : "信息窗口标题"  // 信息窗口标题   
-				}    
-				var infoWindow = new BMap.InfoWindow("信息窗口内容", opts);  // 创建信息窗口对象    
-				map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口 
-			});
+			// marker.addEventListener("click", function(){    
+			// 	var opts = {    
+			// 	 width : 250,     // 信息窗口宽度    
+			// 	 height: 50,     // 信息窗口高度    
+			// 	 title : "信息窗口标题"  // 信息窗口标题   
+			// 	}    
+			// 	var infoWindow = new BMap.InfoWindow("信息窗口内容", opts);  // 创建信息窗口对象    
+			// 	map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口 
+			// });
+
 			// 可托拽的标注,默认禁止
-			marker.enableDragging();    
-			marker.addEventListener("dragend", function(e){    
-			 console.log("当前位置：" + e.point.lng + ", " + e.point.lat);    
-			})
+			// marker.enableDragging();    
+			// marker.addEventListener("dragend", function(e){    
+			//  console.log("当前位置：" + e.point.lng + ", " + e.point.lat);    
+			// })
 
 			// 自定义图标标注
-			var myIcon = new BMap.Icon("img/img1.jpg", new BMap.Size(23, 25), {    
-				// 指定定位位置。   
-				// 当标注显示在地图上时，其所指向的地理位置距离图标左上    
-				// 角各偏移10像素和25像素。您可以看到在本例中该位置即是   
-			   // 图标中央下端的尖角位置。    
-			   offset: new BMap.Size(50, 50),    
-			   // 设置图片偏移。   
-			   // 当您需要从一幅较大的图片中截取某部分作为标注图标时，您   
-			   // 需要指定大图的偏移位置，此做法与css sprites技术类似。    
-			   imageOffset: new BMap.Size(-100, -105)   // 设置图片偏移    
-			 });    
+			// var myIcon = new BMap.Icon("img/img1.jpg", new BMap.Size(23, 25), {    
+			// 	// 指定定位位置。   
+			// 	// 当标注显示在地图上时，其所指向的地理位置距离图标左上    
+			// 	// 角各偏移10像素和25像素。您可以看到在本例中该位置即是   
+			//    // 图标中央下端的尖角位置。    
+			//    offset: new BMap.Size(50, 50),    
+			//    // 设置图片偏移。   
+			//    // 当您需要从一幅较大的图片中截取某部分作为标注图标时，您   
+			//    // 需要指定大图的偏移位置，此做法与css sprites技术类似。    
+			//    imageOffset: new BMap.Size(-100, -105)   // 设置图片偏移    
+			//  });    
 
 			// 创建标注对象并添加到地图   
 			 // var marker1 = new BMap.Marker(new BMap.Point(150.404, 39.915), {icon: myIcon});    
-			map.addOverlay(new BMap.Marker(new BMap.Point(116.40285, 39.794472), {icon: myIcon}));    
+			// map.addOverlay(new BMap.Marker(new BMap.Point(116.40285, 39.794472), {icon: myIcon}));    
 			
 			// 绘制折线
 			// var polyline = new BMap.Polyline([    
