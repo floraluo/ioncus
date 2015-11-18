@@ -5,32 +5,79 @@ angular.module('starter.directive', [])
 		replace: true,
 		transclude: true,
 		template: '<div id="baiduMap"></div>',
-		  scope: {
-                // center: "=",        // Center point on the map (e.g. <code>{ latitude: 10, longitude: 10 }</code>).
-                // markers: "=",       // Array of map markers (e.g. <code>[{ lat: 10, lon: 10, name: "hello" }]</code>).
-                // width: "@",         // Map width in pixels.
-                // height: "@",        // Map height in pixels.
-                // zoom: "@",          // Zoom level (one is totally zoomed out, 25 is very much zoomed in).
-                // zoomControl: "@",   // Whether to show a zoom control on the map.
-                // scaleControl: "@",   // Whether to show scale control on the map.
-                // address:"@"
-            },
+	  	scope: {
+            // center: "=",        // Center point on the map (e.g. <code>{ latitude: 10, longitude: 10 }</code>).
+            // markers: "=",       // Array of map markers (e.g. <code>[{ lat: 10, lon: 10, name: "hello" }]</code>).
+            // width: "@",         // Map width in pixels.
+            // height: "@",        // Map height in pixels.
+            // zoom: "@",          // Zoom level (one is totally zoomed out, 25 is very much zoomed in).
+            // zoomControl: "@",   // Whether to show a zoom control on the map.
+            // scaleControl: "@",   // Whether to show scale control on the map.
+            // address:"@"
+        },
 		link: function(scope, element, atts) {
 			var map;
 			// 百度地图API功能
 			map = new BMap.Map("baiduMap");
 			var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
 			map.centerAndZoom(point, 11);
-			map.addControl(new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM} ))
+
+			//平移缩放控件
+			map.addControl(new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT}))
+
+			// 比例尺控件
 			map.addControl(new BMap.ScaleControl());
-			map.addControl(new BMap.OverviewMapControl()); 
+
+			// 缩略地图控件
+			map.addControl(new BMap.OverviewMapControl({offset: new BMap.Size(15, 100)})); 
+
+			// 地图类型控件，默认位于地图右上方
 			map.addControl(new BMap.MapTypeControl()); 
+
+			// 定位控件，针对移动端开发，默认位于地图左下方
+			map.addControl(new BMap.GeolocationControl()); 
+
 			map.setCurrentCity("北京");
 
+
+			// 浏览器定位
+			var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r){
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+					var mk = new BMap.Marker(r.point);
+					map.addOverlay(mk);
+					map.panTo(r.point);
+				}
+				else {
+					alert('failed'+this.getStatus());
+				}        
+			},{enableHighAccuracy: true})
+			/*关于状态码
+			BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+			BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+			BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+			BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+			BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+			BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+			BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+			BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
+			BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
+			*/
+
+			// 根据ip定位
+			// function myFun(result){
+			// 	var cityName = result.name;
+			// 	map.setCenter(cityName);
+			// }
+			// var myCity = new BMap.LocalCity();
+			// myCity.get(myFun);
+
+
+
 			//添加全景 
-			var stCtrl = new BMap.PanoramaControl();  
-			stCtrl.setOffset(new BMap.Size(20, 20));  
-			map.addControl(stCtrl);
+			// var stCtrl = new BMap.PanoramaControl();  
+			// stCtrl.setOffset(new BMap.Size(20, 20));  
+			// map.addControl(stCtrl);
 
 			// 默认气泡标注
 			var marker = new BMap.Marker(point);        // 创建标注    
@@ -63,7 +110,7 @@ angular.module('starter.directive', [])
 			   // 需要指定大图的偏移位置，此做法与css sprites技术类似。    
 			   imageOffset: new BMap.Size(-100, -105)   // 设置图片偏移    
 			 });    
-			   
+
 			// 创建标注对象并添加到地图   
 			 // var marker1 = new BMap.Marker(new BMap.Point(150.404, 39.915), {icon: myIcon});    
 			map.addOverlay(new BMap.Marker(new BMap.Point(116.40285, 39.794472), {icon: myIcon}));    

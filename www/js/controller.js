@@ -244,7 +244,7 @@ angular.module('starter.controller' , [])
 	}
 }])
 .controller('RegionProCtrl', ['$scope', '$location', '$ionicHistory', 'regionService' ,function($scope,$location, $ionicHistory, regionService){
-// 市级地区
+	// 市级地区
 	var city=regionService.city;
 	$scope.first=false;
 	var path=$location.path(),
@@ -527,9 +527,36 @@ angular.module('starter.controller' , [])
 		});
 	}
 })
-.controller('BaiduMapCtrl', function($scope){
+.controller('BaiduMapCtrl', ['$scope','$http',function($scope,$http){
+	$scope.baidu={
+		address: ''
+	};
+	$scope.search = function() {
+		// $http.jsonp('http://api.map.baidu.com/geocoder/v2/?address='+$scope.baidu.address+'&output=json&ak=sRuCWpcAbUL6RF5GA4obZxmI&callback=showLocation(show)')
+		// .success(function (data) {
+		// 	console.log(data)
+		// })
+		var req = {
+			method: 'JSONP',
+			url: 'http://api.map.baidu.com/geocoder/v2/?address='+$scope.baidu.address+'&output=json&ak=sRuCWpcAbUL6RF5GA4obZxmI&callback=JSON_CALLBACK'
+		}
+		$http(req)
+		.success(function(data) {
+			var location = data.result.location;
+			console.log(location)
+			var map = new BMap.Map("baiduMap");
+			var point = new BMap.Point(location.lng, location.lat);
+			map.centerAndZoom(point, 16);
 
-})
+			// 默认气泡标注
+			var marker = new BMap.Marker(point);        // 创建标注    
+			map.addOverlay(marker);                     // 将标注添加到地图中
+      	})
+		.error(function(data) {
+            $scope.data = data || "Request failed";
+        });
+	};
+}])
 .controller('AboutCtrl', function($scope, $cordovaAppVersion) {
 	$scope.app={};
 	$scope.app.version = '0.0.1';

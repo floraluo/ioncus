@@ -1,6 +1,13 @@
 <ion-view view-title="百度地图">
 	<ion-content>
-		<baidu-map  style="height:500px;margin:12px;box-shadow:0 3px 25px black;"  address="{{address}}">
+		<div class="bar bar-header item-input-inset">
+			<label class="item-input-wrapper">
+				<i class="icon ion-ios-search placeholder-icon"></i>
+				<input type="search" placeholder="Search" ng-model="baidu.address" id="search">
+			</label>
+			<button class="button button-clear" ng-click="search()">确定</button>
+		</div>
+		<baidu-map  style="height:500px;box-shadow:0 3px 25px black;"  address="{{address}}">
 		</baidu-map>
 	</ion-content>
 </ion-view>
