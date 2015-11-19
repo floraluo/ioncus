@@ -1,5 +1,5 @@
 angular.module('starter.directive', [])
-.directive('baiduMap', function(){
+.directive('baiduMap', function($http){
 	return {
 		restrict: 'E',
 		replace: true,
@@ -41,17 +41,17 @@ angular.module('starter.directive', [])
 
 
 			// 浏览器定位
-			// var geolocation = new BMap.Geolocation();
-			// geolocation.getCurrentPosition(function(r){
-			// 	if(this.getStatus() == BMAP_STATUS_SUCCESS){
-			// 		var mk = new BMap.Marker(r.point);
-			// 		map.addOverlay(mk);
-			// 		map.panTo(r.point);
-			// 	}
-			// 	else {
-			// 		alert('failed'+this.getStatus());
-			// 	}        
-			// },{enableHighAccuracy: true})
+			var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r){
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+					var mk = new BMap.Marker(r.point);
+					map.addOverlay(mk);
+					map.panTo(r.point);
+				}
+				else {
+					alert('failed'+this.getStatus());
+				}        
+			},{enableHighAccuracy: true})
 			/*关于状态码
 			BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
 			BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
@@ -65,18 +65,45 @@ angular.module('starter.directive', [])
 			*/
 
 			// html5 定位
-			if (navigator.geolocation){
-		    	navigator.geolocation.getCurrentPosition(function(position){
-		    		var point = {
-			    			lng: position.coords.longitude,
-			    			lat: position.coords.latitude
-		    			},
-		    			mk = new BMap.Marker(new BMap.Point(point.lng, point.lat));
-		    			map.addOverlay(mk);
-		    			// map.panTo(point.lng, point.lat);
-						map.centerAndZoom(new BMap.Point(point.lng, point.lat), 11);
-		    	});
-		    }
+			// if (navigator.geolocation){
+		 //    	navigator.geolocation.getCurrentPosition(function(position){
+		 //    		var point = {
+			//     			lng: position.coords.longitude,
+			//     			lat: position.coords.latitude
+		 //    			};
+	  //   // 			var mk = new BMap.Marker(new BMap.Point(point.lng, point.lat));
+	  //   // 			map.addOverlay(mk);
+	  //   // 			// map.panTo(point.lng, point.lat);
+			// 		// map.centerAndZoom(new BMap.Point(point.lng, point.lat), 14);
+
+			// 		var req = {
+			// 			method: 'JSONP',
+			// 			url: 'http://api.map.baidu.com/geoconv/v1/?coords='+point.lng+','+point.lat+'&output=json&ak=sRuCWpcAbUL6RF5GA4obZxmI&callback=JSON_CALLBACK'
+			// 		}
+			// 		$http(req)
+			// 		.success(function(data) {
+			// 			var location = data.result[0];
+			// 			console.log(location)
+			// 			var map = new BMap.Map("baiduMap");
+			// 			var point = new BMap.Point(location.x, location.y);
+			// 			map.centerAndZoom(point, 16);
+
+			// 			// 默认气泡标注
+			// 			var marker = new BMap.Marker(point);        // 创建标注    
+			// 			map.addOverlay(marker);                     // 将标注添加到地图中
+			// 			map.centerAndZoom(new BMap.Point(point.lng, point.lat), 11);
+			// 			// mk = new BMap.Marker(new BMap.Point(point.lng, point.lat));
+		 //    // 			map.addOverlay(mk);
+		 //    // 			// map.panTo(point.lng, point.lat);
+			// 			// map.centerAndZoom(new BMap.Point(point.lng, point.lat), 11);
+			//       	})
+			// 		.error(function(data) {
+			//             $scope.data = data || "Request failed";
+			//         });
+		 //    	});
+		 //    }
+
+		 
 			// 根据ip定位
 			// function myFun(result){
 			// 	var cityName = result.name;
