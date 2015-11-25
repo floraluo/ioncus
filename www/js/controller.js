@@ -34,6 +34,8 @@ angular.module('starter.controller' , [])
 .controller('SheetCtrl', function($scope, $ionicActionSheet, $cordovaActionSheet){
 	$scope.actionsheet=function(){
 		$ionicActionSheet.show({
+			titleText: 'ActionSheet Example',
+			// 自定义选项
 			buttons:[
 				{ text: "分享"}
 			],
